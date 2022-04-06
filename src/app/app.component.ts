@@ -12,6 +12,7 @@ export class AppComponent {
   YP = 0;
   ASD = -1;
   user = new Array();
+  user1 = new Array();
 
   userprofileForm = new FormGroup({
     fname: new FormControl('', Validators.required),
@@ -21,6 +22,7 @@ export class AppComponent {
   onSubmit() {
       if (this.case == 0) {
         this.user.push(this.userprofileForm.value);
+        this.user1.push(this.userprofileForm.value);
       } else {
         this.user[this.ASD] = this.userprofileForm.value;
         this.case = 0;
@@ -41,5 +43,17 @@ export class AppComponent {
     this.YP = this.user[sd];
     this.case = 1;
     this.ASD = sd;
+  }
+  
+   Search() {
+    if (this.fname1 != "") {
+      let user = this.user.filter(res => {
+        console.warn(this.user);
+        return res.fname.toLocaleLowerCase().match(this.fname1.toLocaleLowerCase());
+      });
+      this.user = user;
+    } else {
+      this.user = this.user1;
+    }
   }
 }
